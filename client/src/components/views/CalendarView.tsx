@@ -5,65 +5,78 @@ import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 const CalendarView = () => {
   const { state } = useTaskContext();
   const { tasks } = state;
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 2, 16)); // Março 2026
+  // Agora o estado controla qual mês estamos vendo!
+  const [viewDate, setViewDate] = useState(new Date(2026, 2, 1)); 
 
-  // Dias da semana
+  // Funções para mudar o mês
+  const nextMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1));
+  const prevMonth = () => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
+  const goToToday = () => setViewDate(new Date(2026, 2, 1)); // Volta para Março/2026
+
+  // Lógica para calcular os dias do mês dinamicamente
+  const monthName = viewDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+  const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
+  const firstDayOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+
   const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+  const calendarDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const blanks = Array.from({ length: firstDayOfMonth }, (_, i) => i);
 
-  // Lógica básica para gerar os dias do mês de Março/2026 (baseado no seu print)
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
-
-  // Função para filtrar tarefas do dia
+  // Filtra as tarefas que batem com o dia, mês e ano que estamos vendo
   const getTasksForDay = (day: number) => {
-    // Aqui assumimos que suas tarefas têm um campo 'date'. 
-    // Ajustamos para comparar com o dia do mês atual.
     return tasks.filter(task => {
-      const taskDate = new Date(task.date);
-      return taskDate.getDate() === day && taskDate.getMonth() === 2; // Mês 2 é Março
+      const tDate = new Date(task.date);
+      return (
+        tDate.getDate() === day &&
+        tDate.getMonth() === viewDate.getMonth() &&
+        tDate.getFullYear() === viewDate.getFullYear()
+      );
     });
   };
 
   return (
-    <div className="flex flex-col h-full bg-background p-4">
+    <div className="flex flex-col h-full bg-background p-4 animate-in fade-in duration-500">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-xl font-bold text-foreground">Calendário</h2>
-          <p className="text-sm text-muted-foreground">março 2026</p>
+          <h2 className="text-xl font-bold text-foreground capitalize">{monthName}</h2>
+          <p className="text-sm text-muted-foreground">Suas tarefas organizadas no tempo</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 hover:bg-secondary rounded-md border"><ChevronLeft size={16} /></button>
-          <button className="px-4 py-1.5 text-sm font-medium border rounded-md hover:bg-secondary">Hoje</button>
-          <button className="p-2 hover:bg-secondary rounded-md border"><ChevronRight size={16} /></button>
+          <button onClick={prevMonth} className="p-2 hover:bg-secondary rounded-md border transition-colors"><ChevronLeft size={16} /></button>
+          <button onClick={goToToday} className="px-4 py-1.5 text-sm font-medium border rounded-md hover:bg-secondary">Hoje</button>
+          <button onClick={nextMonth} className="p-2 hover:bg-secondary rounded-md border transition-colors"><ChevronRight size={16} /></button>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-border border rounded-lg overflow-hidden flex-1">
+      <div className="grid grid-cols-7 gap-px bg-border border rounded-lg overflow-hidden flex-1 shadow-sm">
         {weekDays.map(day => (
-          <div key={day} className="bg-muted/50 p-2 text-center text-xs font-medium text-muted-foreground uppercase">
+          <div key={day} className="bg-muted/30 p-3 text-center text-xs font-semibold text-muted-foreground uppercase">
             {day}
           </div>
         ))}
         
-        {days.map(day => {
+        {blanks.map(b => <div key={`blank-${b}`} className="bg-card/50 min-h-[100px]" />)}
+
+        {calendarDays.map(day => {
           const dayTasks = getTasksForDay(day);
-          const isToday = day === 16;
+          const isToday = day === 16 && viewDate.getMonth() === 2 && viewDate.getFullYear() === 2026;
 
           return (
-            <div key={day} className={`bg-card p-2 min-h-[100px] border-t border-l transition-colors hover:bg-accent/50 group relative ${isToday ? 'ring-2 ring-primary z-10' : ''}`}>
-              <span className={`text-sm font-medium ${isToday ? 'text-primary' : 'text-muted-foreground'}`}>
+            <div key={day} className="bg-card p-2 min-h-[120px] border-t border-l transition-all hover:bg-accent/10 group relative">
+              <span className={`text-sm font-bold flex items-center justify-center w-7 h-7 rounded-full ${isToday ? 'bg-primary text-primary-foreground shadow-md' : 'text-muted-foreground'}`}>
                 {day}
               </span>
               
-              <div className="mt-1 space-y-1">
+              <div className="mt-2 space-y-1 overflow-y-auto max-h-[80px]">
                 {dayTasks.map(task => (
-                  <div key={task.id} className="text-[10px] p-1 bg-blue-100 text-blue-700 rounded border border-blue-200 truncate">
+                  <div key={task.id} className="text-[10px] p-1.5 bg-primary/10 text-primary rounded-md border border-primary/20 truncate font-medium">
                     {task.title}
                   </div>
                 ))}
               </div>
 
-              <button className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-secondary rounded">
-                <Plus size={14} className="text-muted-foreground" />
+              <button className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-all p-1.5 bg-primary text-white rounded-full shadow-lg">
+                <Plus size={14} />
               </button>
             </div>
           );
