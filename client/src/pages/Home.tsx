@@ -11,7 +11,6 @@ import KanbanView from "@/components/views/KanbanView";
 import CalendarView from "@/components/views/CalendarView";
 import Statistics from "@/pages/Statistics";
 import { useTaskContext } from "@/contexts/TaskContext";
-import { motion } from "framer-motion";
 
 export default function Home() {
   const { state } = useTaskContext();
@@ -35,17 +34,10 @@ export default function Home() {
     return (
       <>
         <FilterBar />
-        <motion.div
-          key={viewMode}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="flex-1"
-        >
+        <div key={viewMode} className="flex-1">
           {viewMode === "list" && <ListView />}
           {viewMode === "kanban" && <KanbanView />}
-          {viewMode === "calendar" && <CalendarView />}
-        </motion.div>
+        </div>
       </>
     );
   };
