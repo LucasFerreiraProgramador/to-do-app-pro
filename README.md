@@ -1,4 +1,4 @@
-# 📋 TaskMaster Pro - Gestão de Tarefas Inteligente
+# 📋 To-Do App Pro - Gestão de Tarefas Inteligente
 
 Um organizador de tarefas robusto e elegante, focado em produtividade e
 organização pessoal. Este projeto combina uma interface moderna (Dark Mode) com funcionalidades avançadas de gestão de fluxo de trabalho.
