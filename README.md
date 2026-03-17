@@ -4,7 +4,7 @@ Um organizador de tarefas robusto e elegante, focado em produtividade e
 organização pessoal. Este projeto combina uma interface moderna (Dark Mode) com funcionalidades avançadas de gestão de fluxo de trabalho.
 
 🔗 Acesse o projeto:  
-(colocar depois)
+https://to-do.ferreiradev.com/
 
 ---
 
@@ -16,6 +16,15 @@ organização pessoal. Este projeto combina uma interface moderna (Dark Mode) co
 - ✅ **Múltiplas Visualizações**: Alternância entre Lista, Kanban e Calendário.
 - ✅ **Gestão de Dados**: Funções para Exportar, Importar e Resetar o banco de tarefas.
 - ✅ **Interface Moderna**: Design Dark Mode limpo e responsivo.
+
+## 📖 Guia de Uso
+Criar Tarefa: Clique no botão de adicionar e preencha o título e a sub-tarefa.
+
+Categorizar: Escolha entre Trabalho, Pessoal, Estudos ou Saúde para organizar seu fluxo.
+
+Trocar Visualização: Utilize o menu superior para alternar entre as vistas de Lista, Kanban ou Calendário.
+
+Gerenciar Dados: Na barra de ferramentas, você pode exportar suas tarefas para um arquivo ou resetar o banco de dados conforme necessário.
 
 ## 🛠️ Tecnologias Utilizadas
 
