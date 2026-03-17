@@ -8,7 +8,6 @@ import Layout from "@/components/Layout";
 import FilterBar from "@/components/FilterBar";
 import ListView from "@/components/views/ListView";
 import KanbanView from "@/components/views/KanbanView";
-import CalendarView from "@/components/views/CalendarView";
 import Statistics from "@/pages/Statistics";
 import { useTaskContext } from "@/contexts/TaskContext";
 
