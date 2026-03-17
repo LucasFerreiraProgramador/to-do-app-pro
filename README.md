@@ -3,7 +3,7 @@
 Um organizador de tarefas robusto e elegante, focado em produtividade e
 organização pessoal. Este projeto combina uma interface moderna (Dark Mode) com funcionalidades avançadas de gestão de fluxo de trabalho.
 
-🔗 Acesse o projeto:  
+🔗 ACESSE O PROJETO AQUI:  
 https://to-do.ferreiradev.com/
 
 ---
@@ -36,6 +36,9 @@ Gerenciar Dados: Na barra de ferramentas, você pode exportar suas tarefas para 
 ## 📁 Estrutura do Projeto
 
 O código está organizado de forma modular para facilitar a manutenção e escalabilidade, seguindo as melhores práticas de desenvolvimento Front-End.
+
+## ❗Informações complementares: 
+O projeto esta em constante evolução e atualizações.
 
 ## 👤 Autor
 - [Lucas Ferreira](https://lucas.ferreiradev.com/)
