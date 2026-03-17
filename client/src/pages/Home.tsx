@@ -8,6 +8,7 @@ import Layout from "@/components/Layout";
 import FilterBar from "@/components/FilterBar";
 import ListView from "@/components/views/ListView";
 import KanbanView from "@/components/views/KanbanView";
+import CalendarView from "@/components/views/CalendarView";
 import Statistics from "@/pages/Statistics";
 import { useTaskContext } from "@/contexts/TaskContext";
 
@@ -25,7 +26,7 @@ export default function Home() {
     }
   }, [isDarkMode]);
 
-  const renderContent = () => {
+ const renderContent = () => {
     if (currentSection === "statistics") {
       return <Statistics />;
     }
@@ -36,6 +37,7 @@ export default function Home() {
         <div key={viewMode} className="flex-1">
           {viewMode === "list" && <ListView />}
           {viewMode === "kanban" && <KanbanView />}
+          {viewMode === "calendar" && <CalendarView />}
         </div>
       </>
     );
